@@ -4,14 +4,32 @@
 Femme - Devs
 
 ## **Project Title**:  
-**Intelligent Search Engine for Grocery Retail**
+**Semantic Search for Products - Bizom + New Frontiers**
 
 ---
+
+1. **Relevance & Impact**:
+   - Solves a critical problem in grocery retail by improving search accuracy and usability.
+   - Enhances the shopping experience for consumers and businesses by overcoming keyword-based search limitations.
+
+2. **Preliminary Research**:
+   - Studied pain points in traditional search systems.
+   - Explored fuzzy matching, semantic search, and regional language handling to align with consumer needs.
+
+3. **Proposed Methodology**:
+   - Combined traditional search (exact match) with advanced techniques (fuzzy search, embeddings).
+   - Integrated Hindi vocabulary mapping for regional language queries.
+
+4. **Team Collaboration**:
+   - Clear task distribution and regular GitHub updates.
+   - Maintained transparency in progress clear communication.
+
+--- 
 
 ## **Progress Summary**
 
 1. **GitHub Repository**:   
-   - **Tag**: Mid-hack tagged at [Insert Commit Hash].
+   - **Tag**: Mid-hack tagged at Commit.
 
 2. **Implemented Features**:
    - **Data Cleaning and Preparation**:
@@ -49,27 +67,6 @@ Femme - Devs
 
 ---
 
-## **Evaluation Criteria Alignment**
-
-### **Mid-Hack Criteria**
-
-1. **Relevance & Impact**:
-   - Solves a critical problem in grocery retail by improving search accuracy and usability.
-   - Enhances the shopping experience for consumers and businesses by overcoming keyword-based search limitations.
-
-2. **Preliminary Research**:
-   - Studied pain points in traditional search systems.
-   - Explored fuzzy matching, semantic search, and regional language handling to align with consumer needs.
-
-3. **Proposed Methodology**:
-   - Combined traditional search (exact match) with advanced techniques (fuzzy search, embeddings).
-   - Integrated Hindi vocabulary mapping for regional language queries.
-
-4. **Team Collaboration**:
-   - Clear task distribution and regular GitHub updates.
-   - Maintained transparency in progress through detailed documentation.
-
----
 
 ## **Challenges Faced**
 
@@ -130,40 +127,16 @@ https://www.kaggle.com/code/neesham/semantic-search-for-beginners
 
 https://www.nltk.org/
 
-
-
-### GitHub Resources and Libraries
 1. *Fuzzy Search*: 
-   - The [fuzzysearch Python library](https://github.com/taleinat/fuzzysearch) provides a way to implement approximate string matching, which is useful for handling spelling errors (e.g., "Rise" -> "Rice")【39】.
-   - A [simple fuzzy search script](https://gist.github.com/umitdincel/89960b4f9c302c604443) demonstrates basic concepts of token-based fuzzy matching【40】.
+   - The [fuzzysearch Python library](https://github.com/taleinat/fuzzysearch) provides a way to implement approximate string matching, which is useful for handling spelling errors (e.g., "Rise" -> "Rice").
+   - A [simple fuzzy search script](https://gist.github.com/umitdincel/89960b4f9c302c604443) demonstrates basic concepts of token-based fuzzy matching.
 
 2. *Regional Language Support*:
    - The [Indic NLP Library](https://github.com/anoopkunchukuttan/indic_nlp_library) helps process and tokenize Indian languages like Hindi. It's beneficial for enabling Hindi-language queries.
 
 3. *Semantic Search*:
-   - [Haystack by deepset](https://github.com/deepset-ai/haystack): A robust framework for building semantic search solutions using embeddings, which is ideal for intent-based queries like "Give me beverages" or "Show me small pack sizes for Harpic"【38】.
+   - [Haystack by deepset](https://github.com/deepset-ai/haystack): A robust framework for building semantic search solutions using embeddings, which is ideal for intent-based queries like "Give me beverages" or "Show me small pack sizes for Harpic".
    - [Sentence-Transformers](https://github.com/UKPLab/sentence-transformers): A library for creating embeddings to build semantic search systems effectively.
 
 4. *Dataset Preparation and Management*:
    - The [Pandas Profiling library](https://github.com/pandas-profiling/pandas-profiling) helps analyze and clean datasets efficiently.
-
-### Websites and Tutorials
-1. *Fuzzy Search Tutorials*:
-   - A detailed tutorial on fuzzy string matching using fuzzywuzzy and Levenshtein distance is available [here](https://towardsdatascience.com/fuzzy-string-matching-in-python-68f240d910fe).
-
-2. *Semantic Search and Embedding Creation*:
-   - A [YouTube playlist by deepset](https://www.youtube.com/channel/UC0ifKdS7pfGLnpoJo24aGgQ) offers hands-on tutorials on implementing semantic search using Haystack.
-
-3. *Multilingual NLP*:
-   - Explore [Google's Multilingual BERT](https://github.com/google-research/bert) for creating embeddings that can work with queries in Hindi and other languages.
-
-4. *Handling Regional Queries*:
-   - Tutorials on language processing using Indic NLP tools, including tokenization and transliteration, can be found on [the library's documentation](https://anoopkunchukuttan.github.io/indic_nlp_library/).
-
-### YouTube Learning Resources
-1. *Fuzzy Matching*:
-   - A practical video on [implementing fuzzy search](https://www.youtube.com/watch?v=8FFLLsn1tE0) using Python.
-2. *Semantic Search*:
-   - A detailed explanation of semantic search and how embeddings work is available on [this tutorial](https://www.youtube.com/watch?v=l3UeYP8kE8c).
-
-These resources should help you refine and enhance features like fuzzy search, semantic understanding, and multilingual support for your project. Let me know if you need further help!
