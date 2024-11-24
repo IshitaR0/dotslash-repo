@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luvlt Shopping - Homepage</title>
+    <link rel="stylesheet" href="public/styles.css">
+</head>
+<body>
+    <header class="website-title">
+        Luvlt Confectionery Shop
+    </header>
+
+    <div class="radio-container">
+        <p class="question-text">Which size do you prefer?</p>
+        <div class="radio-box">
+            <label><input type="radio" name="size" value="very small"> Very Small</label><br>
+            <label><input type="radio" name="size" value="small"> Small</label><br>
+            <label><input type="radio" name="size" value="medium"> Medium</label><br>
+            <label><input type="radio" name="size" value="big"> Big</label><br>
+        </div>
+    </div>
+
+    <div class="button-container">
+        <button id="clear-button">Clear</button>
+        <button id="next-button">Next</button>
+    </div>
+
+    <script>
+        document.getElementById('clear-button').addEventListener('click', () => {
+            document.querySelectorAll('input[name="size"]').forEach(radio => radio.checked = false);
+        });
+
+        document.getElementById('next-button').addEventListener('click', () => {
+            const selectedOption = document.querySelector('input[name="size"]:checked');
+            if (selectedOption) {
+                window.location.href = "maincode.html";
+            } else {
+                if (!document.getElementById('error-message')) {
+                    const errorMessage = document.createElement('p');
+                    errorMessage.id = 'error-message';
+                    errorMessage.style.color = 'red';
+                    errorMessage.textContent = 'You are required to choose an option!';
+                    document.body.appendChild(errorMessage);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

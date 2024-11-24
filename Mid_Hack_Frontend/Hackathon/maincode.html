@@ -11,11 +11,14 @@
         Luvlt Confectionery Shop
     </header>
 
-    <div class="search-bar">
-        <input type="text" id="search-input" placeholder="Search products...">
-    </div>
+    <form id="searchForm">
+        <input type="text" id="queryInput" placeholder="Search for products..." required />
+        <button type="submit">Search</button>
+    </form>    
 
-    <div class="product-container" id="product-container">
+    <div id="error-message" style="color: red;"></div>
+    <div class="product-container" id="results">
+        <!-- Results will be displayed here -->
     </div>
 
     <script src="product.js"></script>
