@@ -1,3 +1,4 @@
+#FIRST---------------------->
 # from flask import Flask, request, jsonify
 # import pandas as pd
 # from sentence_transformers import SentenceTransformer, util
@@ -120,65 +121,66 @@
 # if __name__ == '__main__':
 #     app.run(debug=True, host='0.0.0.0', port=5000)
 
+#SECOND---------------------->
+import pandas as pd
+from sentence_transformers import SentenceTransformer, util
+import torch
 
-# import pandas as pd
-# from sentence_transformers import SentenceTransformer, util
-# import torch
+# 1. Initialize SentenceTransformer model
+model = SentenceTransformer('all-MiniLM-L6-v2')
 
-# # 1. Initialize SentenceTransformer model
-# model = SentenceTransformer('all-MiniLM-L6-v2')
+# 2. Function to clean input (basic text preprocessing)
+def clean_input(input_text):
+    input_text = input_text.strip() # Convert to lowercase and strip extra spaces
+    # You can add more advanced cleaning here if needed (e.g., removing special characters)
+    return input_text
 
-# # 2. Function to clean input (basic text preprocessing)
-# def clean_input(input_text):
-#     input_text = input_text.strip() # Convert to lowercase and strip extra spaces
-#     # You can add more advanced cleaning here if needed (e.g., removing special characters)
-#     return input_text
+# 3. Function to perform semantic search
+def semantic_search(input_query, dataset_path, top_k=10):
+    # Clean the input query
+    cleaned_query = clean_input(input_query)
+    
+    # Generate embedding for the cleaned input query
+    query_embedding = model.encode(cleaned_query, convert_to_tensor=True)
+    
+    # Load the pre-cleaned dataset
+    data = pd.read_csv('filtered_dataset.csv')
+    
+    # Ensure 'Description' column exists in dataset, else adjust
+    if 'Name' not in data.columns:
+        raise ValueError("Dataset must contain a 'Name' column.")
+    
+    # 4. Generate embeddings for the dataset descriptions
+    product_name = data['Name'].fillna('').tolist()  # Handle NaNs
+    product_embeddings = model.encode(product_name, convert_to_tensor=True)
+    
+    # 5. Compute cosine similarity between the query and product descriptions
+    scores = util.cos_sim(query_embedding, product_embeddings).squeeze()
+    
+    # 6. Get the top-k most similar products
+    top_results = torch.topk(scores, k=top_k)
+    
+    # 7. Display results
+    print(f"Top {top_k} results for '{input_query}':\n")
+    for idx in top_results.indices:
+        product = data.iloc[idx.item()]
+        print(f"Name: {product['Name']}")
+        print(f"Category: {product['Category']}")
+        print(f"Description: {product['Description']}")
+        print(f"Price: {product['Price']}")
+        print('-' * 50)
 
-# # 3. Function to perform semantic search
-# def semantic_search(input_query, dataset_path, top_k=10):
-#     # Clean the input query
-#     cleaned_query = clean_input(input_query)
+# Example usage
+if __name__ == '__main__':
+    # Ask for user input
+    input_query = input("Enter your search query: ")
+    dataset_path = "filtered_dataset.csv"  # Path to your dataset (replace with your actual dataset)
     
-#     # Generate embedding for the cleaned input query
-#     query_embedding = model.encode(cleaned_query, convert_to_tensor=True)
-    
-#     # Load the pre-cleaned dataset
-#     data = pd.read_csv('filtered_dataset.csv')
-    
-#     # Ensure 'Description' column exists in dataset, else adjust
-#     if 'Name' not in data.columns:
-#         raise ValueError("Dataset must contain a 'Name' column.")
-    
-#     # 4. Generate embeddings for the dataset descriptions
-#     product_name = data['Name'].fillna('').tolist()  # Handle NaNs
-#     product_embeddings = model.encode(product_name, convert_to_tensor=True)
-    
-#     # 5. Compute cosine similarity between the query and product descriptions
-#     scores = util.cos_sim(query_embedding, product_embeddings).squeeze()
-    
-#     # 6. Get the top-k most similar products
-#     top_results = torch.topk(scores, k=top_k)
-    
-#     # 7. Display results
-#     print(f"Top {top_k} results for '{input_query}':\n")
-#     for idx in top_results.indices:
-#         product = data.iloc[idx.item()]
-#         print(f"Name: {product['Name']}")
-#         print(f"Category: {product['Category']}")
-#         print(f"Description: {product['Description']}")
-#         print(f"Price: {product['Price']}")
-#         print('-' * 50)
-
-# # Example usage
-# if __name__ == '__main__':
-#     # Ask for user input
-#     input_query = input("Enter your search query: ")
-#     dataset_path = "filtered_dataset.csv"  # Path to your dataset (replace with your actual dataset)
-    
-#     # Perform semantic search and display results
-#     semantic_search(input_query, dataset_path)
+    # Perform semantic search and display results
+    semantic_search(input_query, dataset_path)
 
 
+#THIRD---------------------->
 # import pandas as pd
 # from sentence_transformers import SentenceTransformer, util
 # import torch
@@ -292,67 +294,67 @@
 #     semantic_search(user_query, top_k=10)
 
 
-import pandas as pd
-from sentence_transformers import SentenceTransformer, util
-import torch
+# import pandas as pd
+# from sentence_transformers import SentenceTransformer, util
+# import torch
 
-# Load the precomputed embeddings and dataset
-print("Loading precomputed embeddings...")
-product_embeddings = torch.load("models/embeddings.pt")  # Path to embeddings file
-data = pd.read_csv("models/filtered_dataset_with_searchtext.csv")  # Path to saved dataset with SearchText
+# # Load the precomputed embeddings and dataset
+# print("Loading precomputed embeddings...")
+# product_embeddings = torch.load("models/embeddings.pt")  # Path to embeddings file
+# data = pd.read_csv("models/filtered_dataset_with_searchtext.csv")  # Path to saved dataset with SearchText
 
-# Load the SentenceTransformer model (use same model as precompute step)
-model = SentenceTransformer('all-MiniLM-L6-v2')
+# # Load the SentenceTransformer model (use same model as precompute step)
+# model = SentenceTransformer('all-MiniLM-L6-v2')
 
-# Function to clean user input
-def clean_input(input_text):
-    return input_text.strip().lower()
+# # Function to clean user input
+# def clean_input(input_text):
+#     return input_text.strip().lower()
 
-# Perform semantic search
-def semantic_search(input_query, top_k=10):
-    # Clean the input query
-    cleaned_query = clean_input(input_query)
+# # Perform semantic search
+# def semantic_search(input_query, top_k=10):
+#     # Clean the input query
+#     cleaned_query = clean_input(input_query)
     
-    # Generate embedding for the query
-    query_embedding = model.encode(cleaned_query, convert_to_tensor=True)
+#     # Generate embedding for the query
+#     query_embedding = model.encode(cleaned_query, convert_to_tensor=True)
     
-    # Compute cosine similarity between query embedding and product embeddings
-    scores = util.cos_sim(query_embedding, product_embeddings).squeeze()
+#     # Compute cosine similarity between query embedding and product embeddings
+#     scores = util.cos_sim(query_embedding, product_embeddings).squeeze()
     
-    # Get top-k results
-    top_results = torch.topk(scores, k=top_k)
+#     # Get top-k results
+#     top_results = torch.topk(scores, k=top_k)
     
-    # Fetch and display results
-    results = []
-    for idx in top_results.indices:
-        product = data.iloc[idx.item()]
-        results.append({
-            "Name": product['Name'],
-            "Category": product['Category'],
-            "Description": product['Description'],
-            "Price": product.get('Price', 'N/A')  # Optional: handle missing columns
-        })
+#     # Fetch and display results
+#     results = []
+#     for idx in top_results.indices:
+#         product = data.iloc[idx.item()]
+#         results.append({
+#             "Name": product['Name'],
+#             "Category": product['Category'],
+#             "Description": product['Description'],
+#             "Price": product.get('Price', 'N/A')  # Optional: handle missing columns
+#         })
     
-    return results
+#     return results
 
-# Main function for command-line interface
-if __name__ == '__main__':
-    print("Welcome to Semantic Search!")
-    while True:
-        input_query = input("\nEnter your search query (or type 'exit' to quit): ")
-        if input_query.lower() == 'exit':
-            break
+# # Main function for command-line interface
+# if __name__ == '__main__':
+#     print("Welcome to Semantic Search!")
+#     while True:
+#         input_query = input("\nEnter your search query (or type 'exit' to quit): ")
+#         if input_query.lower() == 'exit':
+#             break
         
-        # Perform semantic search
-        try:
-            results = semantic_search(input_query)
-            print(f"\nTop results for '{input_query}':")
-            for i, result in enumerate(results, 1):
-                print(f"\nResult {i}:")
-                print(f"Name: {result['Name']}")
-                print(f"Category: {result['Category']}")
-                print(f"Description: {result['Description']}")
-                print(f"Price: {result['Price']}")
-                print("-" * 50)
-        except Exception as e:
-            print(f"An error occurred: {e}")
+#         # Perform semantic search
+#         try:
+#             results = semantic_search(input_query)
+#             print(f"\nTop results for '{input_query}':")
+#             for i, result in enumerate(results, 1):
+#                 print(f"\nResult {i}:")
+#                 print(f"Name: {result['Name']}")
+#                 print(f"Category: {result['Category']}")
+#                 print(f"Description: {result['Description']}")
+#                 print(f"Price: {result['Price']}")
+#                 print("-" * 50)
+#         except Exception as e:
+#             print(f"An error occurred: {e}")
